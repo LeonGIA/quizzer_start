@@ -119,7 +119,14 @@ export const QuestionEdit = ({
                                 <Form.Select
                                     className="type_dropdown"
                                     value={question.type}
-                                    onChange={handleSwitch}
+                                    onChange={(
+                                        e: React.ChangeEvent<HTMLSelectElement>
+                                    ) => {
+                                        editQuestion(question.id, {
+                                            ...question, 
+                                            type: e.target.value === "multiple_choice_question" ? "multiple_choice_question" : "short_answer_question"
+                                        });
+                                    }}
                                 >
                                     <option
                                         data-testid={
