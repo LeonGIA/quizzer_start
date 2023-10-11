@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Question, QuestionType } from "../interfaces/question";
+import { Question } from "../interfaces/question";
 
 import "./QuestionEdit.css";
 import { Button, Form } from "react-bootstrap";
@@ -32,16 +32,6 @@ export const QuestionEdit = ({
             type: "multiple_choice_question",
             expected: "Example Answer",
             options: Array(newNum).fill("Example Answer")
-        });
-    };
-
-    const switchMulti = () => {
-        b(0);
-        editQuestion(question.id, {
-            ...question,
-            type: "multiple_choice_question",
-            expected: "Example Answer",
-            options: Array(3).fill("Example Answer")
         });
     };
 
