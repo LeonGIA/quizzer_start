@@ -20,10 +20,10 @@ const QUIZZES = sample.map(
 );
 
 describe("Quizzer Tests", () => {
-    beforeEach(() => {
-        render(<Quizzer />);
-    });
+    const setup = () => render(<Quizzer />);
+
     test("Users can add a new quiz", () => {
+        setup();
         const button = screen.getByText("Add New Quiz");
         expect(screen.queryByLabelText("Title: ")).not.toBeInTheDocument();
         button.click();
@@ -34,6 +34,7 @@ describe("Quizzer Tests", () => {
     });
 
     test("Users can see a list of quizzes, including the quizzes title, description, and how many questions it has", () => {
+        setup();
         for (let i = 0; i < QUIZZES.length; i++) {
             expect(screen.getByText(QUIZZES[i].title)).toBeInTheDocument();
             expect(
@@ -49,6 +50,7 @@ describe("Quizzer Tests", () => {
     });
 
     test("Users can select a specific quiz to see the questions, including the questions name, body, and points", () => {
+        setup();
         const text = screen.getByText("Simple_Questions");
         text.click();
         expect(screen.getByText("Exit")).toBeInTheDocument();
@@ -56,23 +58,22 @@ describe("Quizzer Tests", () => {
             screen.getByText("What is 2+2?", { exact: false })
         ).toBeInTheDocument();
         for (let i = 0; i < QUIZZES[1].questionList.length; i++) {
-            if (QUIZZES[1].questionList[i].published == true) {
-                expect(
-                    screen.getByText(QUIZZES[1].questionList[i].body, {
-                        exact: false
-                    })
-                ).toBeInTheDocument();
-                expect(
-                    screen.getAllByText(
-                        QUIZZES[1].questionList[i].points + " pt",
-                        { exact: false }
-                    )[0]
-                ).toBeInTheDocument();
-            }
+            expect(
+                screen.getByText(QUIZZES[1].questionList[i].body, {
+                    exact: false
+                })
+            ).toBeInTheDocument();
+            expect(
+                screen.getAllByText(
+                    QUIZZES[1].questionList[i].points + " pt",
+                    { exact: false }
+                )[0]
+            ).toBeInTheDocument();
         }
     });
 
     test("Users can enter or choose an answer for a quiz question, and be told if they are correct", () => {
+        setup();
         const text = screen.getByText("Simple_Questions");
         text.click();
         expect(screen.getByText("Exit")).toBeInTheDocument();
@@ -88,12 +89,14 @@ describe("Quizzer Tests", () => {
     });
 
     test("Users can see how many total points they have earned", () => {
+        setup();
         const text = screen.getByText("Simple_Questions");
         text.click();
         expect(screen.getByText(/\d\/\d/)).toBeInTheDocument();
     });
 
     test("Users can clear out their existing answers for a quiz", () => {
+        setup();
         const text = screen.getByText("Simple_Questions");
         text.click();
         expect(screen.getByText("Exit")).toBeInTheDocument();
@@ -116,6 +119,7 @@ describe("Quizzer Tests", () => {
     });
 
     test("Users can publish or unpublish a question", () => {
+        setup();
         const text = screen.getByText("Simple_Questions");
         text.click();
         const editButton = screen.getByText("Edit");
@@ -138,6 +142,7 @@ describe("Quizzer Tests", () => {
     });
 
     test("Users can filter the questions in a list so that only published questions are shown", () => {
+        setup();
         const text = screen.getByText("Simple_Questions");
         text.click();
         const editButton = screen.getByText("Edit");
@@ -158,6 +163,7 @@ describe("Quizzer Tests", () => {
     });
 
     test("Users can delete an existing quiz", () => {
+        setup();
         const text = screen.getByText("Simple_Questions");
         text.click();
         const editButton = screen.getByText("Edit");
@@ -173,6 +179,7 @@ describe("Quizzer Tests", () => {
     });
 
     test("Users can add a new quiz question", () => {
+        setup();
         const text = screen.getByText("Simple_Questions");
         text.click();
 
@@ -202,6 +209,7 @@ describe("Quizzer Tests", () => {
     });
 
     test("Users can reorder quiz questions", () => {
+        setup();
         const text = screen.getByText("Simple_Questions");
         text.click();
 
@@ -226,6 +234,7 @@ describe("Quizzer Tests", () => {
     });
 
     test("Quiz questions can be of AT LEAST two types: a short answer question or multiple choice question", () => {
+        setup();
         const text = screen.getByText("Simple_Questions");
         text.click();
 
