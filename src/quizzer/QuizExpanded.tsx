@@ -19,7 +19,7 @@ export const QuizExpanded = ({
 }) => {
     const filteredQuestions = quiz.questionList.filter(
         (q: Question): boolean =>
-            (quiz.published && q.published) || !quiz.published
+            (quiz.published && q.published)
     );
 
     const [p, sp] = useState<number>(0);
@@ -34,8 +34,7 @@ export const QuizExpanded = ({
     };
 
     const totalPoints = filteredQuestions.reduce(
-        (prev: number, q: Question): number => prev + q.points,
-        0
+        (prev: number, q: Question): number => prev + q.points, 0
     );
 
     const addPoints = (p: number) => {
